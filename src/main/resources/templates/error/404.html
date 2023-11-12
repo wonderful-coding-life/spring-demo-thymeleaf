@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-404 NOT FOUND<br>
-<p th:text="${message}"></p>
+404 NOT FOUND
+<hr>
+<p>Status: <span th:text="${status}"></span></p>
+<p>Error: <span th:text="${error}"></span></p>
+<p>Message: <span th:text="${message}"></span></p>
 </body>
 </html>

@@ -4,11 +4,13 @@ import com.thymeleaf.demo.mapper.EmployeeMapper;
 import com.thymeleaf.demo.model.Employee;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/employee")
@@ -58,9 +60,7 @@ public class EmployeeController {
     @GetMapping("/delete")
     public String getEmployeeDelete(int id, Model model) {
         if (employeeMapper.delete(id) == 0) {
-            var message = String.format("사용자(id=%d)를 찾을 수 없습니다.", id);
-            model.addAttribute("message", message);
-            return "/error/404";
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "직원 정보가 없습니다.");
         }
         return "redirect:list";
     }
