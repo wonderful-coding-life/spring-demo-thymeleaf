@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/employee/edit" th:action="@{/employee/edit}" th:object="${employee}" method="post">
+    <input type="hidden" name="id" th:value="*{id}"/>
+    <label>이름<input name="name" th:value="*{name}"/></label><br>
+    <label>전화<input name="phone" th:value="*{phone}"/></label><br>
+    <label>주소<input name="address" th:value="*{address}"/></label><br>
+    <input type="submit" value="추가"/>
+</form>
+</body>
+</html>

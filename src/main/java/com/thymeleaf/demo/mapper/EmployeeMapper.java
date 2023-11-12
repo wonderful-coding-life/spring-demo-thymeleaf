@@ -11,9 +11,9 @@ public interface EmployeeMapper {
     List<Employee> selectAll();
     @Select("SELECT * FROM employee WHERE id=#{id}")
     Employee selectById(int id);
-    @Insert("INSERT INTO employee(name, phone, address) VALUES(#{employee.name}, #{employee.phone}, #{employee.address})")
+    @Insert("INSERT INTO employee(name, phone, address) VALUES(#{name}, #{phone}, #{address})")
     int insert(Employee employee);
-    @Update("UPDATE employee SET name=#{employee.name}, phone=#{employee.phone}, address=#{employee.address} WHERE id=#{employee.id}")
+    @Update("UPDATE employee SET name=#{name}, phone=#{phone}, address=#{address} WHERE id=#{id}")
     int update(Employee employee);
     @Delete("DELETE FROM employee WHERE id=#{id}")
     int delete(int id);
