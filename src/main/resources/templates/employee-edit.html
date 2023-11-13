@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base-fragment :: layout( ~{::title}, ~{::link}, ~{::section} )}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://css.gg/css" rel="stylesheet" />
 </head>
 <body>
-<form action="/employee/edit" th:action="@{/employee/edit}" th:object="${employee}" method="post">
-    <input type="hidden" name="id" th:value="*{id}"/>
-    <label>이름<input name="name" th:value="*{name}"/></label><br>
-    <label>전화<input name="phone" th:value="*{phone}"/></label><br>
-    <label>주소<input name="address" th:value="*{address}"/></label><br>
-    <input type="submit" value="추가"/>
-</form>
+<section>
+    <form action="/employee/edit" th:action="@{/employee/edit}" th:object="${employee}" method="post">
+        <input type="hidden" name="id" th:value="*{id}"/>
+        <label class="form-label">이름<input name="name" th:value="*{name}" class="form-control"/></label><br>
+        <label class="form-label">전화<input name="phone" th:value="*{phone}" class="form-control"/></label><br>
+        <label class="form-label">주소<input name="address" th:value="*{address}" class="form-control"/></label><br>
+        <input type="submit" value="저장" class="btn btn-primary"/>
+    </form>
+</section>
 </body>
 </html>

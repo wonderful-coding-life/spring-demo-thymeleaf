@@ -8,10 +8,10 @@
 <body>
 <section>
     <form action="/employee/add" th:action="@{/employee/add}" method="post">
-        <label>이름<input name="name"/></label><br>
-        <label>전화<input name="phone"/></label><br>
-        <label>주소<input name="address"/></label><br>
-        <input type="submit" value="추가"/>
+        <label class="form-label">이름<input name="name" class="form-control"/></label><br>
+        <label class="form-label">전화<input name="phone" class="form-control"/></label><br>
+        <label class="form-label">주소<input name="address" class="form-control"/></label><br>
+        <input type="submit" value="추가" class="btn btn-primary"/>
     </form>
 </section>
 </body>

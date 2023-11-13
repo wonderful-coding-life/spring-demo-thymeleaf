@@ -7,12 +7,13 @@
 </head>
 <body>
 <section>
-    <ul th:object="${employee}">
-        <li th:text="*{id}">1</li>
-        <li th:text="*{name}">홍길동</li>
-        <li th:text="*{phone}">010-1111-1111</li>
-        <li th:text="*{address}">서울시 강남구 대치동</li>
+    <ul th:object="${employee}" class="list-group">
+        <li th:text="*{id}" class="list-group-item">1</li>
+        <li th:text="*{name}" class="list-group-item">홍길동</li>
+        <li th:text="*{phone}" class="list-group-item">010-1111-1111</li>
+        <li th:text="*{address}" class="list-group-item">서울시 강남구 대치동</li>
     </ul>
+    <a class="btn btn-primary" href="/employee-edit" role="button" th:href="@{/employee/edit(id=${employee.id})}">수정</a>
 </section>
 </body>
 </html>
