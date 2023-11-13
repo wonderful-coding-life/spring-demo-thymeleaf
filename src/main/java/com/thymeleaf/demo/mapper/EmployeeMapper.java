@@ -17,4 +17,10 @@ public interface EmployeeMapper {
     int update(Employee employee);
     @Delete("DELETE FROM employee WHERE id=#{id}")
     int delete(int id);
+    @Select("SELECT COUNT(*) FROM employee")
+    int selectCount();
+    @Select("SELECT COUNT(*) FROM employee WHERE name like #{filter}")
+    int selectCountFiltered(String filter);
+    @Select("SELECT * FROM employee WHERE name LIKE #{filter} ORDER BY ${orderBy} ${orderType} LIMIT #{length} OFFSET #{start}")
+    List<Employee> selectEmployees(@Param("filter") String filter, @Param("orderBy") String orderBy, @Param("orderType") String orderType, @Param("start") int start, @Param("length") int length);
 }
