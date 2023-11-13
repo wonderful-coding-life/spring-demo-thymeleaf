@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base-fragment :: layout( ~{::title}, ~{::link}, ~{::section} )}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://css.gg/css" rel="stylesheet" />
 </head>
 <body>
-<form action="/employee/add" th:action="@{/employee/add}" method="post">
-    <label>이름<input name="name"/></label><br>
-    <label>전화<input name="phone"/></label><br>
-    <label>주소<input name="address"/></label><br>
-    <input type="submit" value="추가"/>
-</form>
+<section>
+    <form action="/employee/add" th:action="@{/employee/add}" method="post">
+        <label>이름<input name="name"/></label><br>
+        <label>전화<input name="phone"/></label><br>
+        <label>주소<input name="address"/></label><br>
+        <input type="submit" value="추가"/>
+    </form>
+</section>
 </body>
 </html>

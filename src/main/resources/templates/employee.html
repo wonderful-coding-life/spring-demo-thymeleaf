@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base-fragment :: layout( ~{::title}, ~{::link}, ~{::section} )}">
 <head>
     <meta charset="UTF-8">
-    <title>Employee</title>
+    <title>Title</title>
+    <link href="https://css.gg/css" rel="stylesheet" />
 </head>
 <body>
-<ul th:object="${employee}">
-    <li th:text="*{id}">1</li>
-    <li th:text="*{name}">홍길동</li>
-    <li th:text="*{phone}">010-1111-1111</li>
-    <li th:text="*{address}">서울시 강남구 대치동</li>
-</ul>
+<section>
+    <ul th:object="${employee}">
+        <li th:text="*{id}">1</li>
+        <li th:text="*{name}">홍길동</li>
+        <li th:text="*{phone}">010-1111-1111</li>
+        <li th:text="*{address}">서울시 강남구 대치동</li>
+    </ul>
+</section>
 </body>
 </html>
