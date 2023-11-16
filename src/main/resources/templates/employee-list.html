@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Employee List</title>
@@ -12,11 +14,12 @@
     <tbody>
     <tr th:each="employee: ${employees}">
         <td th:text="${employee.id}">1</td>
-        <td th:text="${employee.name}">홍길동</td>
+        <td><a href="employee.html" th:text="${employee.name}" th:href="@{/employee(id=${employee.id})}">홍길동</a></td>
         <td th:text="${employee.phone}">010-1111-1111</td>
         <td th:text="${employee.address}">서울시 강남구 대치동</td>
     </tr>
     </tbody>
 </table>
+<a href="/employee-add" th:href="@{/employee/add}" sec:authorize="hasRole('EMPLOYEE')">임직원 추가</a>
 </body>
 </html>

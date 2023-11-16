@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+HOME<br>
+<a th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a><br>
+<a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a><br>
+<div sec:authorize="isAuthenticated()" sec:authentication="name">홍길동</div><br>
+<div sec:authorize="hasAnyRole('EMPLOYEE, PRODUCT')">관리자</div><br>
+<div sec:authorize="hasAnyRole('EMPLOYEE')"><a href="employee-list" th:href="@{/employee/list}">직원관리 페이지</a></div><br>
+<div sec:authorize="hasAnyRole('PRODUCT')"><a href="product-list" th:href="@{/product/list}">제품관리 페이지</a></div><br>
+<div th:if="${extraUserDetails != null}">
+    <div th:text="${extraUserDetails.getDisplayName()}">displayName</div>
+    <div th:text="${extraUserDetails.getProfileImage()}">profileImage</div>
+</div>
+</body>
+</html>

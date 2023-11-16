@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Employee</title>
@@ -11,5 +12,6 @@
     <li th:text="*{phone}">010-1111-1111</li>
     <li th:text="*{address}">서울시 강남구 대치동</li>
 </ul>
+<a href="/employee-edit" th:href="@{/employee/edit(id=${employee.id})}" sec:authorize="hasRole('EMPLOYEE')">수정</a>
 </body>
 </html>
