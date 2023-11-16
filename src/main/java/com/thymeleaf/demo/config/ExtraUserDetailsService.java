@@ -24,9 +24,4 @@ public class ExtraUserDetailsService implements UserDetailsService {
                 .credentialsNonExpired(true)
                 .enabled(true).build();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

@@ -7,13 +7,14 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,14 +45,13 @@ public class SecurityConfig {
                         .build()
         );
     }
-
-    // not tested
     //@Bean
     public UserDetailsService jdbcUserDetailsService(DataSource dataSource) {
-        var jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT * FROM users WHERE username=?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT * FROM authorities WHERE username=?");
-        return jdbcUserDetailsManager;
+        return new JdbcUserDetailsManager(dataSource);
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -60,11 +60,27 @@ public class SecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/image/**")).permitAll()
+                    .requestMatchers(PathRequest.toH2Console()).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/employee/**")).hasAuthority("ROLE_EMPLOYEE")
                     .requestMatchers(new AntPathRequestMatcher("/product/**")).hasAuthority("ROLE_PRODUCT")
                     .anyRequest().permitAll();
         });
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(login -> {
+            login.loginPage("/login");
+            login.defaultSuccessUrl("/");
+            login.permitAll();
+        });
+        httpSecurity.logout(logout -> {
+            logout.logoutUrl("/logout");
+            logout.logoutSuccessUrl("/");
+            logout.permitAll();
+        });
+        httpSecurity.csrf(csrf -> {
+            csrf.ignoringRequestMatchers(PathRequest.toH2Console());
+        });
+        httpSecurity.headers(headers -> {
+            headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
+        });
         return httpSecurity.build();
     };
 }
